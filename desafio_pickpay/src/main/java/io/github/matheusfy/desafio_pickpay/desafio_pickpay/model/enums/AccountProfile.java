@@ -4,7 +4,7 @@ public enum AccountProfile {
 
   COMUM(1), SHOPKEEPER(2);
 
-  private int value;
+  private final int value;
 
   private AccountProfile(int value) {
     this.value = value;

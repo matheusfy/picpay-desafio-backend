@@ -1,5 +1,6 @@
 package io.github.matheusfy.desafio_pickpay.desafio_pickpay.model;
 
+import io.github.matheusfy.desafio_pickpay.desafio_pickpay.model.account.Account;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

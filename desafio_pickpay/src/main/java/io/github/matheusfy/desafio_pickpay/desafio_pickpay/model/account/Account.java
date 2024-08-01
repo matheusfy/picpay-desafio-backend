@@ -1,16 +1,21 @@
-package io.github.matheusfy.desafio_pickpay.desafio_pickpay.model;
+package io.github.matheusfy.desafio_pickpay.desafio_pickpay.model.account;
 
+import io.github.matheusfy.desafio_pickpay.desafio_pickpay.model.User;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import lombok.Data;
+import lombok.*;
 
 @Entity
 @Table(name = "accounts")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class Account {
 
   @Id

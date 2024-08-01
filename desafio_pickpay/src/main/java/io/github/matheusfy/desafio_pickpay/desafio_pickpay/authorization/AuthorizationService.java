@@ -1,12 +1,17 @@
 package io.github.matheusfy.desafio_pickpay.desafio_pickpay.authorization;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
+
+import java.util.Objects;
 
 @Service
 public class AuthorizationService {
 
-  private RestClient client;
+  private final RestClient client;
+  private final Logger logger = LogManager.getLogger();
 
   public AuthorizationService(RestClient.Builder clientBuilder) {
     this.client = clientBuilder
@@ -19,8 +24,10 @@ public class AuthorizationService {
         .retrieve()
         .toEntity(Authorization.class);
 
-    if (response.getStatusCode().isError() || !response.getBody().data().isAuthorized()) {
+    if (response.getStatusCode().isError() || !Objects.requireNonNull(response.getBody()).data().isAuthorized()) {
       throw new RuntimeException("Transação não autorizada.");
     }
+
+    logger.info("Transaction authorized.");
   }
 }
