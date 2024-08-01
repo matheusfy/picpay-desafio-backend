@@ -1,10 +1,7 @@
 package io.github.matheusfy.desafio_pickpay.desafio_pickpay.controller;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import io.github.matheusfy.desafio_pickpay.desafio_pickpay.model.dtos.TransactionDto;
 import io.github.matheusfy.desafio_pickpay.desafio_pickpay.service.TransactionService;
@@ -21,9 +18,14 @@ public class TransactionController {
   }
 
   @PostMapping("/transfer")
-  public ResponseEntity<?> transfer(@RequestBody @Valid TransactionDto transactionDto) {
+  public ResponseEntity<String> transfer(@RequestBody @Valid TransactionDto transactionDto) {
     transactionService.transfer(transactionDto);
     return ResponseEntity.ok().body("Transação realizada com sucesso!");
+  }
+
+  @GetMapping("/hello")
+  public ResponseEntity<String> hello(){
+    return ResponseEntity.ok("Hello");
   }
 
 }
