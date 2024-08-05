@@ -67,7 +67,7 @@ public class TransactionService {
 
     logger.info("Sender updated balance: " + sender + "; Receiver updated balance: " + receiver);
 
-//    notificationService.notify(transaction);
+    notificationService.notify(transaction);
   }
 
   public User getUser(long id) {

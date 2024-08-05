@@ -1,11 +1,10 @@
 package io.github.matheusfy.desafio_pickpay.desafio_pickpay.authorization;
 
+import io.github.matheusfy.desafio_pickpay.desafio_pickpay.authorization.exception.NonAuthorizedException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
-
-import java.util.Objects;
 
 @Service
 public class AuthorizationService {
@@ -20,13 +19,19 @@ public class AuthorizationService {
   }
 
   public void authorize() {
-    var response = client.get()
-        .retrieve()
-        .toEntity(Authorization.class);
+      try{
+        var response = client.get()
+            .retrieve()
+            .toEntity(Authorization.class);
 
-    if (response.getStatusCode().isError() || !Objects.requireNonNull(response.getBody()).data().isAuthorized()) {
-      throw new RuntimeException("Transação não autorizada.");
-    }
+        if (response.getStatusCode().isError() || !response.getBody().data().isAuthorized()) {
+            logger.warn("Transaction not authorized.");
+          throw new NonAuthorizedException("Transaction not authorized.");
+        }
+      } catch (Exception e){
+          throw new RuntimeException(e.getMessage());
+      }
+
 
     logger.info("Transaction authorized.");
   }

@@ -20,6 +20,12 @@ public class NotificationProducer {
 
   public void sendNotification(Transaction transaction) {
     logger.info("Sending transaction notification.");
-    kafkaTemplate.send("transaction-notification", transaction);
+
+    try{
+        kafkaTemplate.send("transaction-notification", transaction);
+    } catch (Error e){
+        logger.error("Failed to send transaction notification.");
+    }
+
   }
 }
